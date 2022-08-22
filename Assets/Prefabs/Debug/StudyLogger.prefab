@@ -43,3 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a65b6579a3d6cd645885aa1eb2f71ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  b: {fileID: 0}
+  spherePref: {fileID: 8632604144581405763, guid: d1a9b3726054d904a9f2959ea3f50bee,
+    type: 3}
