@@ -95,3 +95,5 @@
 
 # Cache files
 *.cache
+
+/tmpbuild/

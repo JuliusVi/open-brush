@@ -64,8 +64,11 @@ public class LoggerCAD : MonoBehaviour
 
         TextWriter tw = new StreamWriter(filename, true);
 
-        tw.WriteLine("[" + System.DateTime.Now + "]" + "Head position: " + mainCameraTransform.position + "Wand position: " + wandTransform.position + "Brush position: " + brushTransform.position);
-
+        tw.WriteLine("[" + System.DateTime.Now + "]" + ":" + mainCameraTransform.position);// + ":" + wandTransform.position + ":" + brushTransform.position);
+        //Debug.Log("[" + System.DateTime.Now + "]" + ":");
+        //Debug.Log(mainCameraTransform.position + ":");
+        //Debug.Log(wandTransform.position + ":");
+        //Debug.Log(brushTransform.position);
         tw.Close();
     }
 
