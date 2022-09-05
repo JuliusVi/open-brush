@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.UIElements;
 using ViveSR.anipal.Eye;
 
 namespace TiltBrush {
@@ -9,6 +10,9 @@ namespace TiltBrush {
     {
         private FocusInfo FocusInfo;
         private float MaxDistance = 20;
+
+        public RectTransform eyeRayVis;
+
         private void Start()
         {
 
@@ -30,8 +34,11 @@ namespace TiltBrush {
             
             if (eye_focus)
             {
-                EyeDebugCubeBehaviour edcb = FocusInfo.transform.GetComponent<EyeDebugCubeBehaviour>();
+                IFocusable edcb = FocusInfo.transform.GetComponent<IFocusable>();
                 if (edcb != null) edcb.Focus(FocusInfo.point);
+
+
+
                 return;
             }
 

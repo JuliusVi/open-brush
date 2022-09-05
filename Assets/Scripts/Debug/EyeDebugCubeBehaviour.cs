@@ -5,7 +5,7 @@ using UnityEngine;
 namespace TiltBrush
 {
 
-    public class EyeDebugCubeBehaviour : MonoBehaviour
+    public class EyeDebugCubeBehaviour : MonoBehaviour, IFocusable
     {
         private Renderer Renderer;
 
@@ -15,6 +15,8 @@ namespace TiltBrush
         public float oX, oY, oZ, rotX, rotY, rotZ;
         private Transform tracking;
         public string trackingName;
+
+       
 
 
         private void Awake()
@@ -30,12 +32,20 @@ namespace TiltBrush
             lastHit = Time.realtimeSinceStartup;
         }
 
+        void Start()
+        {
+            this.transform.localPosition = new Vector3(oX, oY, oZ);
+        }
+
         public void Update()
         {
             if (GameObject.Find(trackingName).transform != null)
             {
                 tracking = GameObject.Find(trackingName).transform;
-                this.transform.SetPositionAndRotation(tracking.transform.TransformPoint(tracking.transform.localPosition + new Vector3(oX, oY, oZ)), tracking.transform.rotation * Quaternion.Euler(rotX, rotY, rotZ));
+
+                this.transform.parent.position = tracking.transform.position;
+                this.transform.parent.rotation = tracking.transform.rotation * Quaternion.Euler(rotX, rotY, rotZ);
+
             }
 
             if (Time.realtimeSinceStartup - lastHit < 1)
