@@ -5,8 +5,9 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using ViveSR.anipal.Eye;
 
-namespace TiltBrush {
-    public class FocusSketch : MonoBehaviour
+namespace TiltBrush
+{
+    public class FocusOverlay : MonoBehaviour
     {
         private FocusInfo FocusInfo;
         private float MaxDistance = 20;
@@ -25,13 +26,13 @@ namespace TiltBrush {
 
         private void Update()
         {
-            
+
             if (SRanipal_Eye_Framework.Status != SRanipal_Eye_Framework.FrameworkStatus.WORKING &&
                 SRanipal_Eye_Framework.Status != SRanipal_Eye_Framework.FrameworkStatus.NOT_SUPPORT) return;
-            
+
             Ray GazeRay;
-            bool eye_focus = SRanipal_Eye.Focus(GazeIndex.COMBINE, out GazeRay, out FocusInfo, 0, MaxDistance, (1 << 25));
-            
+            bool eye_focus = SRanipal_Eye.Focus(GazeIndex.COMBINE, out GazeRay, out FocusInfo, 0, MaxDistance, (1 << 24));
+
             if (eye_focus)
             {
                 IFocusable edcb = FocusInfo.transform.GetComponent<IFocusable>();

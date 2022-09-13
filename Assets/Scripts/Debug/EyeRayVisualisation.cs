@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using TiltBrush;
+using UnityEngine.EventSystems;
 
 public class EyeRayVisualisation : MonoBehaviour, IFocusable
 {
@@ -13,10 +14,8 @@ public class EyeRayVisualisation : MonoBehaviour, IFocusable
     public string trackingName;
 
     public RectTransform rtDebug;
-    public RectTransform rtOverlay;
-
-    public float tuneTop, tuneBottom, tuneLeftRight, tuneWidth;
-
+    public RectTransform rtProjectionTarget;
+    public RectTransform attachedCanvasTransform;
 
     private void Awake()
     {
@@ -32,11 +31,15 @@ public class EyeRayVisualisation : MonoBehaviour, IFocusable
     public void Focus(Vector3 focusPoint)
     {
         rtDebug.position = new Vector3(focusPoint.x, focusPoint.y, focusPoint.z);
+        Ray r = new Ray(focusPoint, focusPoint - tracking.position);
+        Plane p = new Plane(attachedCanvasTransform.forward, attachedCanvasTransform.position);
+        float tmpRes;
+        p.Raycast(r, out tmpRes);
+        if (tmpRes != 0)
+        {
+            rtProjectionTarget.position = r.GetPoint(tmpRes);
+        }
 
-        //rtOverlay.position = rtDebug.localPosition*10;
-        tuneWidth = rtOverlay.GetComponentInParent<Canvas>().pixelRect.height/ rtOverlay.GetComponentInParent<Canvas>().pixelRect.width;
-        tuneWidth += 0.02f;
-        rtOverlay.position = new Vector2(tuneLeftRight + (rtOverlay.GetComponentInParent<Canvas>().pixelRect.width/2 + (rtDebug.localPosition.x/5)*rtOverlay.GetComponentInParent<Canvas>().pixelRect.width/2)*tuneWidth, rtOverlay.GetComponentInParent<Canvas>().pixelRect.height/2 + (rtDebug.localPosition.y / 5)* rtOverlay.GetComponentInParent<Canvas>().pixelRect.height/2);
         Debug.Log("FP: " + rtDebug.localPosition);
     }
 

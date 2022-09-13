@@ -6,12 +6,13 @@ using TiltBrush;
 
 public class LoggerCAD : MonoBehaviour
 {
+    private readonly object loggerLock = new object();
 
-    string filename = "";
+    static string filename = "_StudyLog.txt";
 
-    Transform mainCameraTransform;
-    Transform wandTransform;
-    Transform brushTransform;
+    public Transform mainCameraTransform;
+    public Transform wandTransform;
+    public Transform brushTransform;
 
     public Batch b;
     public GeometryPool p;
@@ -20,19 +21,21 @@ public class LoggerCAD : MonoBehaviour
     private int previousCount = 0;
 
     public GameObject spherePref;
+
+    TextWriter tw;
     // Start is called before the first frame update
     void Start()
     {
         verts = new List<Vector3>();
-        filename = "_StudyLog.txt";
-        mainCameraTransform = GameObject.Find("Camera (eye)").transform;
-        wandTransform = GameObject.Find("Controller (wand)").transform;
-        brushTransform = GameObject.Find("Controller (brush)").transform;
+        
+        tw = new StreamWriter(filename, true);
     }
 
     private void OnEnable()
     {
         Application.logMessageReceived += Log;
+        mainCameraTransform = GameObject.Find("Camera (eye)").transform;
+        //tw = new StreamWriter(filename, true);
     }
 
     private void OnDisable()
@@ -43,7 +46,16 @@ public class LoggerCAD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(b != null)
+        if(wandTransform == null)
+        {
+            wandTransform = GameObject.Find("Controller (wand)").transform;
+        }
+        if (brushTransform == null)
+        {
+            brushTransform = GameObject.Find("Controller (brush)").transform;
+        }
+
+        if (b != null)
         {
             p = b.Geometry;
             if (p.m_Vertices.Count != previousCount)
@@ -62,22 +74,23 @@ public class LoggerCAD : MonoBehaviour
             }
         }
 
-        TextWriter tw = new StreamWriter(filename, true);
+        
 
-        tw.WriteLine("[" + System.DateTime.Now + "]" + ":" + mainCameraTransform.position);// + ":" + wandTransform.position + ":" + brushTransform.position);
+        Debug.Log("[" + System.DateTime.Now + "]" + ":" + mainCameraTransform.position + ":" + wandTransform.position + ":" + brushTransform.position
+            + ":" + mainCameraTransform.rotation + ":" + wandTransform.rotation + ":" + brushTransform.rotation);
         //Debug.Log("[" + System.DateTime.Now + "]" + ":");
         //Debug.Log(mainCameraTransform.position + ":");
         //Debug.Log(wandTransform.position + ":");
         //Debug.Log(brushTransform.position);
-        tw.Close();
     }
 
     public void Log(string logString, string stackTrace, LogType type)
     {
-        TextWriter tw = new StreamWriter(filename, true);
+            tw.WriteLineAsync("[" + System.DateTime.Now + "]" + logString);
+    }
 
-        tw.WriteLine("[" + System.DateTime.Now + "]" + logString);
-
+    void OnDestroy()
+    {
         tw.Close();
     }
 
