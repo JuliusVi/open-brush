@@ -97,4 +97,5 @@
 *.cache
 
 /tmpbuild/
-_StudyLog
+
+_StudyLog.txt
