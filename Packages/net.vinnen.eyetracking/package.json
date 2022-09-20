@@ -1,0 +1,16 @@
+{
+  "name": "net.vinnen.eyetracking",
+  "version": "0.0.1",
+  "displayName": "Eye Tracking",
+  "description": "This package wraps ViveSR.anipal and provides additional features",
+  "unity": "2019.1",
+ "keywords": [
+    "sranipal",
+    "tracking",
+    "eye"
+  ],
+  "author": {
+    "name": "Julius",
+    "email": "julius@vinnen.net"
+  }
+}

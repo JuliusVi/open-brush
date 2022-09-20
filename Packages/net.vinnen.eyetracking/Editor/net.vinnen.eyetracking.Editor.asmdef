@@ -1,0 +1,19 @@
+{
+    "name": "net.vinnen.eyetracking",
+    "references": [
+        "net.vinnen.eyetracking.Scripts",
+        "net.vinnen.eyetracking.Prefabs",
+        "Unity.RenderPipelines.HighDefinition.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        
+    ],
+    "noEngineReferences": false
+}

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TiltBrush { 
+namespace EyeTracking { 
     public interface IFocusable
     {
         void Focus(Vector3 focusPoint);
