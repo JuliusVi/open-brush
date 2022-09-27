@@ -14,26 +14,21 @@ namespace EyeTracking {
         private void Start()
         {
 
-            if (!SRanipal_Eye_Framework.Instance.EnableEye)
-            {
-                enabled = false;
-                return;
-            }
         }
 
         private void Update()
         {
             Ray GazeRay;
             bool eye_focus = false;
+            int aoiLayerId = LayerMask.NameToLayer("EyeTrackingAoI");
 
-            if (SRanipal_Eye_Framework.Status != SRanipal_Eye_Framework.FrameworkStatus.WORKING &&
-                SRanipal_Eye_Framework.Status != SRanipal_Eye_Framework.FrameworkStatus.NOT_SUPPORT)
+            if (!SRanipal_Eye_Framework.Instance.EnableEye)
             {
-                eye_focus = EyeSubstitution.Focus(GazeIndex.COMBINE, out GazeRay, out FocusInfo, 0, MaxDistance, (1 << 25));
+                eye_focus = EyeSubstitution.Focus(GazeIndex.COMBINE, out GazeRay, out FocusInfo, 0, MaxDistance, (1 << aoiLayerId));
             }
             else
             {
-                eye_focus = SRanipal_Eye.Focus(GazeIndex.COMBINE, out GazeRay, out FocusInfo, 0, MaxDistance, (1 << 25));
+                eye_focus = SRanipal_Eye.Focus(GazeIndex.COMBINE, out GazeRay, out FocusInfo, 0, MaxDistance, (1 << aoiLayerId));
             }
             
             

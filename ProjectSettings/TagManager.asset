@@ -30,8 +30,8 @@ TagManager:
   - SelectionCanvas
   - GpuIntersection
   - PinnedStencilObject
-  - Overlay
-  - EyeTracking
+  - EyeTrackingOverlay
+  - EyeTrackingAoI
   - 
   - 
   - 

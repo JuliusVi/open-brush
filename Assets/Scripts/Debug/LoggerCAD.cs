@@ -73,11 +73,12 @@ public class LoggerCAD : MonoBehaviour
                 previousCount = p.m_Vertices.Count;
             }
         }
-
         
 
+
+
         Debug.Log("[" + System.DateTime.Now + "]" + ":" + mainCameraTransform.position + ":" + wandTransform.position + ":" + brushTransform.position
-            + ":" + mainCameraTransform.rotation + ":" + wandTransform.rotation + ":" + brushTransform.rotation);
+            + ":" + mainCameraTransform.rotation + ":" + wandTransform.rotation + ":" + brushTransform.rotation + ":" + allInputsToString());
         //Debug.Log("[" + System.DateTime.Now + "]" + ":");
         //Debug.Log(mainCameraTransform.position + ":");
         //Debug.Log(wandTransform.position + ":");
@@ -92,6 +93,36 @@ public class LoggerCAD : MonoBehaviour
     void OnDestroy()
     {
         tw.Close();
+    }
+
+    public string allInputsToString()
+    {
+        return "[Brush - " +
+            "Button1: " + InputManager.Brush.GetVrInput(VrInput.Button01) +
+            " Button2: " + InputManager.Brush.GetVrInput(VrInput.Button02) +
+            " Button3: " + InputManager.Brush.GetVrInput(VrInput.Button03) +
+            " Button4: " + InputManager.Brush.GetVrInput(VrInput.Button04) +
+            " Button5: " + InputManager.Brush.GetVrInput(VrInput.Button05) +
+            " Button6: " + InputManager.Brush.GetVrInput(VrInput.Button06) +
+            " Directional: " + InputManager.Brush.GetVrInput(VrInput.Directional) +
+            " Grip: " + InputManager.Brush.GetVrInput(VrInput.Grip) +
+            " Thumbstick: " + InputManager.Brush.GetVrInput(VrInput.Thumbstick) +
+            " Touchpad: " + InputManager.Brush.GetVrInput(VrInput.Touchpad) +
+            " Trigger: " + InputManager.Brush.GetVrInput(VrInput.Trigger) +
+            "] : " +
+            "[Wand - " +
+            "Button1: " + InputManager.Wand.GetVrInput(VrInput.Button01) +
+            " Button2: " + InputManager.Wand.GetVrInput(VrInput.Button02) +
+            " Button3: " + InputManager.Wand.GetVrInput(VrInput.Button03) +
+            " Button4: " + InputManager.Wand.GetVrInput(VrInput.Button04) +
+            " Button5: " + InputManager.Wand.GetVrInput(VrInput.Button05) +
+            " Button6: " + InputManager.Wand.GetVrInput(VrInput.Button06) +
+            " Directional: " + InputManager.Wand.GetVrInput(VrInput.Directional) +
+            " Grip: " + InputManager.Wand.GetVrInput(VrInput.Grip) +
+            " Thumbstick: " + InputManager.Wand.GetVrInput(VrInput.Thumbstick) +
+            " Touchpad: " + InputManager.Wand.GetVrInput(VrInput.Touchpad) +
+            " Trigger: " + InputManager.Wand.GetVrInput(VrInput.Trigger) +
+            "]";
     }
 
 }

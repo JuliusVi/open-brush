@@ -15,11 +15,6 @@ namespace EyeTracking
         private void Start()
         {
 
-            if (!SRanipal_Eye_Framework.Instance.EnableEye)
-            {
-                enabled = false;
-                return;
-            }
         }
 
         private void Update()
@@ -27,15 +22,15 @@ namespace EyeTracking
 
             Ray GazeRay;
             bool eye_focus = false;
+            int overlayLayerId = LayerMask.NameToLayer("EyeTrackingOverlay");
 
-            if (SRanipal_Eye_Framework.Status != SRanipal_Eye_Framework.FrameworkStatus.WORKING &&
-                SRanipal_Eye_Framework.Status != SRanipal_Eye_Framework.FrameworkStatus.NOT_SUPPORT)
+            if (!SRanipal_Eye_Framework.Instance.EnableEye)
             {
-                eye_focus = EyeSubstitution.Focus(GazeIndex.COMBINE, out GazeRay, out FocusInfo, 0, MaxDistance, (1 << 24));
+                eye_focus = EyeSubstitution.Focus(GazeIndex.COMBINE, out GazeRay, out FocusInfo, 0, MaxDistance, (1 << overlayLayerId));
             }
             else
             {
-                eye_focus = SRanipal_Eye.Focus(GazeIndex.COMBINE, out GazeRay, out FocusInfo, 0, MaxDistance, (1 << 24));
+                eye_focus = SRanipal_Eye.Focus(GazeIndex.COMBINE, out GazeRay, out FocusInfo, 0, MaxDistance, (1 << overlayLayerId));
             }
 
             if (eye_focus)

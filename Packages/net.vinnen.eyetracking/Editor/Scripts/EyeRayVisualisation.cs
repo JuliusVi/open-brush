@@ -14,7 +14,6 @@ namespace EyeTracking
 
         public float oX, oY, oZ, rotX, rotY, rotZ;
         private Transform tracking;
-        public string trackingName;
 
         public RectTransform rtDebug;
         public RectTransform rtProjectionTarget;
@@ -25,7 +24,7 @@ namespace EyeTracking
             Renderer = GetComponent<Renderer>();
             Collider c = GetComponent<Collider>();
 
-            tracking = GameObject.Find(trackingName).transform;
+            tracking = Camera.main.transform;
             this.transform.localPosition = new Vector3(oX, oY, oZ);
 
             Focus(Vector3.zero);
@@ -43,7 +42,7 @@ namespace EyeTracking
                 rtProjectionTarget.position = r.GetPoint(tmpRes);
             }
 
-            Debug.Log("FP: " + rtDebug.localPosition);
+            //Debug.Log("FP: " + rtDebug.localPosition);
         }
 
         // Update is called once per frame

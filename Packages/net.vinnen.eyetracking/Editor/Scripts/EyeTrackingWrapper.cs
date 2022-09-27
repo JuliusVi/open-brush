@@ -8,8 +8,10 @@ namespace EyeTracking
     public class EyeTrackingWrapper : MonoBehaviour
     {
 
-        public GameObject eyeFramework;
-        public Camera camera;
+        private GameObject eyeFramework;
+
+        [Tooltip("The Camera that is used if Tracking Type is set to Head")]
+        private Camera trackingCamera = null;
 
         public enum TrackingState
         {
@@ -17,27 +19,30 @@ namespace EyeTracking
             Head
         }
 
+        [Tooltip("If set to Head, the raycasting just follows the head \nIf set to Eye, the raycasting follows the eye")]
         public TrackingState trackingType;
 
         void Awake()
         {
+            if (trackingCamera == null)
+            {
+                trackingCamera = Camera.main;
+            }
+            eyeFramework = transform.GetChild(0).gameObject;
             if (trackingType == TrackingState.Eye)
             {
-                eyeFramework.SetActive(true);
+                eyeFramework.GetComponent<SRanipal_Eye_Framework>().EnableEye = true;
             }
             else
             {
-                EyeSubstitution.camera = this.camera;
+                EyeSubstitution.camera = this.trackingCamera;
             }
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            if(camera == null)
-            {
-                camera = Camera.main;
-            }
+            
         }
 
         // Update is called once per frame
