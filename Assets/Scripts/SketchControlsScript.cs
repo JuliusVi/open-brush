@@ -140,6 +140,7 @@ namespace TiltBrush
             LoadWaitOnDownload,
             SignOutConfirm,
             ReadOnlyNotice,
+            ChangePenHold,
             OpenScriptsCommandsList = 6000,
             OpenScriptsList = 6001,
             OpenExampleScriptsList = 6002,
@@ -4907,6 +4908,10 @@ namespace TiltBrush
                 case GlobalCommands.OpenExampleScriptsList:
                     // TODO refactor code above to use this method
                     OpenUrl("http://localhost:40074/examplescripts");
+                    break;
+                case GlobalCommands.ChangePenHold:
+                    GameObject.Find("QuestRightControllerGeometry(Clone)").transform.Find("PointerAttachAnchor").transform.localPosition = new Vector3(.13f, -.5f, -.7f);
+                    GameObject.Find("QuestRightControllerGeometry(Clone)").transform.Find("PointerAttachAnchor").transform.localRotation = Quaternion.Euler(155, -5.86f, 0);
                     break;
                 case GlobalCommands.Null: break; // Intentionally blank.
                 default:
